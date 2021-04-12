@@ -52,6 +52,8 @@ public final class Player extends TurnOrdered implements IPlayer {
     private int num_mf_active = 0;
     private int num_mf_inferno = 0;
 
+    private int score = 0;
+
     // hexes that are automatically hit by artillery
     private Vector<Coords> artyAutoHitHexes = new Vector<>();
 
