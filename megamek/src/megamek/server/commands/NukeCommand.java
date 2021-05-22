@@ -44,8 +44,14 @@ public class NukeCommand extends ServerCommand {
      */
     @Override
     public void run(int connId, String[] args) {
+
+        // Check to make sure nuking is allowed by game options!
+        if (!(server.getGame().getOptions().booleanOption(OptionsConstants.ALLOWED_REALLY_ALLOW_NUKES) && server.getGame().getOptions().booleanOption(OptionsConstants.ALLOWED_ALLOW_NUKES))) {
+            server.sendServerChat(connId, "Command-line nukes are not enabled in this game.");
+            return;
+        }
         
-        if ( this.precondition(connId, args) ) {
+        if ( this.precondition(args) ) {
             server.sendServerChat(connId, "Nuke command failed." + help);
             return;
         }
@@ -68,14 +74,9 @@ public class NukeCommand extends ServerCommand {
         }
     }
     
-    protected boolean precondition(int connId, String[] args) {
-        // Check to make sure nuking is allowed by game options!
-        if (!(server.getGame().getOptions().booleanOption(OptionsConstants.ALLOWED_REALLY_ALLOW_NUKES) && server.getGame().getOptions().booleanOption(OptionsConstants.ALLOWED_ALLOW_NUKES))) {
-            server.sendServerChat(connId, "Command-line nukes are not enabled in this game.");
-            return false;
-        }
-        // Allowed command length
-        if (!Arrays.asList(new int[] {4, 7}).contains(args.length)) {
+    protected boolean precondition(String[] args) {
+        // Allowed command lengths
+        if (!Arrays.asList(4, 7).contains(args.length)) {
             return false;
         }
         return true;
