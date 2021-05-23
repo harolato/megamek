@@ -19,6 +19,7 @@ import java.io.IOException;
 import megamek.MegaMek;
 import megamek.common.preference.PreferenceManager;
 import megamek.common.util.AbstractCommandLineParser;
+import megamek.server.rating.Rating;
 
 public class DedicatedServer {
     private static final String INCORRECT_ARGUMENTS_MESSAGE = "Incorrect arguments:";
@@ -56,6 +57,9 @@ public class DedicatedServer {
             if (null != saveGameFileName) {
                 dedicated.loadGame(new File(saveGameFileName));
             }
+
+            dedicated.getGame().addGameListener(new Rating(dedicated));
+            
         } catch (AbstractCommandLineParser.ParseException e) {
             MegaMek.getLogger().error(INCORRECT_ARGUMENTS_MESSAGE + e.getMessage() + '\n'
                             + ARGUMENTS_DESCRIPTION_MESSAGE);
