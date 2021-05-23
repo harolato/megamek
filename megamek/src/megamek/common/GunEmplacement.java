@@ -17,6 +17,7 @@ package megamek.common;
 import java.util.Vector;
 
 import megamek.MegaMek;
+import megamek.server.UnitStatusFormatter;
 
 /**
  * A building with weapons fitted and, optionally, a turret.
@@ -607,5 +608,18 @@ public class GunEmplacement extends Tank {
         
         return (occupiedStructure.getCurrentCF(getPosition()) + occupiedStructure.getArmor(getPosition()))
                 / ((double) (initialBuildingCF + initialBuildingArmor));
+    }
+    
+    public String formatArmorOutput() {
+        StringBuffer sb = new StringBuffer(1024);
+        sb.append("            ----------").append(CommonConstants.NL)
+          .append("           |          |").append(CommonConstants.NL)
+          .append("  CF       |    ")
+          .append(UnitStatusFormatter.renderArmor(getArmor(GunEmplacement.LOC_GUNS)))
+          .append("    |").append(CommonConstants.NL)
+          .append("           |          |").append(CommonConstants.NL)
+          .append("         -----------------")
+          .append(CommonConstants.NL);
+        return sb.toString();
     }
 }

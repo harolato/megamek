@@ -22,6 +22,7 @@ import megamek.MegaMek;
 import megamek.common.options.OptionsConstants;
 import megamek.common.weapons.InfantryAttack;
 import megamek.common.weapons.infantry.InfantryWeapon;
+import megamek.server.UnitStatusFormatter;
 
 /**
  * This class represents a squad or point of battle armor equiped infantry,
@@ -2609,5 +2610,15 @@ public class BattleArmor extends Infantry {
         return 2;
     }
 
-
+    @Override
+    public String formatArmorOutput() {
+        StringBuffer sb = new StringBuffer(32);
+        for (int i = 1; i < locations(); i++) {
+            sb.append("Trooper ").append(i).append(": ")
+              .append(UnitStatusFormatter.renderArmor(getArmor(i))).append(" / ")
+              .append(UnitStatusFormatter.renderArmor(getInternal(i)));
+            sb.append(CommonConstants.NL);
+        }
+        return sb.toString();
+    }
 } // End public class BattleArmor extends Infantry implements Serializable

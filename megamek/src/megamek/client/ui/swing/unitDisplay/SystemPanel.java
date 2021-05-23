@@ -47,7 +47,6 @@ import megamek.common.ILocationExposureStatus;
 import megamek.common.Mech;
 import megamek.common.MiscType;
 import megamek.common.Mounted;
-import megamek.common.Protomech;
 import megamek.common.Tank;
 import megamek.common.WeaponType;
 import megamek.common.options.OptionsConstants;
@@ -408,13 +407,7 @@ class SystemPanel extends PicMap implements ItemListener, ActionListener,
                         if (cs.isBreached()) {
                             sb.append("x"); //$NON-NLS-1$
                         }
-                        // Protomechs have different system names.
-                        if (en instanceof Protomech) {
-                            sb.append(Protomech.systemNames[cs.getIndex()]);
-                        } else {
-                            sb.append(((Mech) en).getSystemName(cs
-                                    .getIndex()));
-                        }
+                        sb.append(en.getSystemName(cs.getIndex()));
                         break;
                     case CriticalSlot.TYPE_EQUIPMENT:
                         sb.append(getMountedDisplay(cs.getMount(), loc, cs));

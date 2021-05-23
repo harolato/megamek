@@ -38,6 +38,9 @@ import megamek.common.weapons.other.ISMekTaser;
 import megamek.common.weapons.other.TSEMPWeapon;
 import megamek.common.weapons.ppc.PPCWeapon;
 import megamek.common.weapons.prototypes.*;
+import megamek.server.UnitStatusFormatter;
+
+import static megamek.server.UnitStatusFormatter.renderArmor;
 
 /**
  * You know what mechs are, silly.
@@ -9070,5 +9073,96 @@ public abstract class Mech extends Entity {
     @Override
     public int getSpriteDrawPriority() {
         return 6;
+    }
+    
+    public String formatArmorOutput() {
+        StringBuffer sb = new StringBuffer(1024);
+        sb.append("         FRONT                REAR                INTERNAL");
+        sb.append(CommonConstants.NL);
+        if (getWeight() < 70) {
+            // head
+            sb.append("         (")
+              .append(renderArmor(getArmor(Mech.LOC_HEAD)))
+              .append(")                 (**)                  (");
+            sb.append(renderArmor(getInternal(Mech.LOC_HEAD))).append(")");
+            sb.append(CommonConstants.NL);
+            // torsos
+            sb.append("      /").append(renderArmor(getArmor(Mech.LOC_LT)))
+              .append("|");
+            sb.append(renderArmor(getArmor(Mech.LOC_CT))).append("|");
+            sb.append(renderArmor(getArmor(Mech.LOC_RT))).append(
+                    "\\           /");
+            sb.append(renderArmor(getArmor(Mech.LOC_LT, true))).append("|");
+            sb.append(renderArmor(getArmor(Mech.LOC_CT, true))).append("|");
+            sb.append(renderArmor(getArmor(Mech.LOC_RT, true))).append(
+                    "\\            /");
+            sb.append(renderArmor(getInternal(Mech.LOC_LT))).append("|");
+            sb.append(renderArmor(getInternal(Mech.LOC_CT))).append("|");
+            sb.append(renderArmor(getInternal(Mech.LOC_RT))).append("\\");
+            sb.append(CommonConstants.NL);
+            // arms
+            sb.append("     (").append(renderArmor(getArmor(Mech.LOC_LARM)));
+            sb.append("/ || \\").append(renderArmor(getArmor(Mech.LOC_RARM)));
+            sb.append(")         (   |  |   )          (");
+            sb.append(renderArmor(getInternal(Mech.LOC_LARM))).append(
+                    "/ || \\");
+            sb.append(renderArmor(getInternal(Mech.LOC_RARM))).append(")");
+            sb.append(CommonConstants.NL);
+            // legs
+            sb.append("       /  /\\  \\               /  \\                /  /\\  \\");
+            sb.append(CommonConstants.NL);
+            sb.append("      (").append(renderArmor(getArmor(Mech.LOC_LLEG)));
+            sb.append("/  \\").append(renderArmor(getArmor(Mech.LOC_RLEG)));
+            sb.append(")             /    \\              (");
+            sb.append(renderArmor(getInternal(Mech.LOC_LLEG)));
+            sb.append("/  \\")
+              .append(renderArmor(getInternal(Mech.LOC_RLEG)))
+              .append(")");
+            sb.append(CommonConstants.NL);
+        } else {
+            // head
+            sb.append("      .../")
+              .append(renderArmor(getArmor(Mech.LOC_HEAD)))
+              .append("\\...           .../**\\...            .../");
+            sb.append(renderArmor(getInternal(Mech.LOC_HEAD)))
+              .append("\\...");
+            sb.append(CommonConstants.NL);
+            // torsos
+            sb.append("     /").append(renderArmor(getArmor(Mech.LOC_LT)))
+              .append("| ");
+            sb.append(renderArmor(getArmor(Mech.LOC_CT))).append(" |");
+            sb.append(renderArmor(getArmor(Mech.LOC_RT))).append(
+                    "\\         /");
+            sb.append(renderArmor(getArmor(Mech.LOC_LT, true))).append("| ");
+            sb.append(renderArmor(getArmor(Mech.LOC_CT, true))).append(" |");
+            sb.append(renderArmor(getArmor(Mech.LOC_RT, true))).append(
+                    "\\          /");
+            sb.append(renderArmor(getInternal(Mech.LOC_LT))).append("| ");
+            sb.append(renderArmor(getInternal(Mech.LOC_CT))).append(" |");
+            sb.append(renderArmor(getInternal(Mech.LOC_RT))).append("\\");
+            sb.append(CommonConstants.NL);
+            // arms
+            sb.append("    (").append(renderArmor(getArmor(Mech.LOC_LARM)));
+            sb.append("). -- .(")
+              .append(renderArmor(getArmor(Mech.LOC_RARM)));
+            sb.append(")       (   |    |   )        (");
+            sb.append(renderArmor(getInternal(Mech.LOC_LARM))).append(
+                    "). -- .(");
+            sb.append(renderArmor(getInternal(Mech.LOC_RARM))).append(")");
+            sb.append(CommonConstants.NL);
+            // legs
+            sb.append("       /  /\\  \\             /      \\              /  /\\  \\");
+            sb.append(CommonConstants.NL);
+            sb.append("      /").append(renderArmor(getArmor(Mech.LOC_LLEG)));
+            sb.append(".\\/.").append(renderArmor(getArmor(Mech.LOC_RLEG)));
+            sb.append("\\           /        \\            /");
+            sb.append(renderArmor(getInternal(Mech.LOC_LLEG)));
+            sb.append(".\\/.")
+              .append(renderArmor(getInternal(Mech.LOC_RLEG)))
+              .append("\\");
+            sb.append(CommonConstants.NL);
+        }
+        sb.append(CommonConstants.NL);
+        return sb.toString();
     }
 }

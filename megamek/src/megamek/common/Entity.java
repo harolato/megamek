@@ -16087,4 +16087,14 @@ public abstract class Entity extends TurnOrdered implements Transporter, Targeta
     public boolean isOffBoardObserved(int teamID) {
         return offBoardShotObservers.contains(teamID);
     }
+    
+    public String formatArmorOutput() {
+        return null;
+    }
+    
+    public String getSystemName(int index) {
+        return null;
+    }
+    
+    
 }

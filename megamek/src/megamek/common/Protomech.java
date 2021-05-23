@@ -19,6 +19,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import megamek.common.preference.PreferenceManager;
+import megamek.server.UnitStatusFormatter;
 
 /**
  * Protomechs. Level 2 Clan equipment.
@@ -2338,5 +2339,72 @@ public class Protomech extends Entity {
         roll.addModifier(TargetRoll.CHECK_FALSE,
                          "Protomechs cannot fall");
         return roll;
-    }   
+    }
+
+    @Override
+    public String getSystemName(final int index) {
+        return systemNames[index];
+    }
+
+    @Override
+    public String formatArmorOutput() {
+        StringBuffer sb = new StringBuffer(1024);
+        sb.append("         FRONT                INTERNAL");
+        sb.append(CommonConstants.NL);
+
+        // head & main gun
+        sb.append("        ");
+        if (hasMainGun()) {
+            sb.append(UnitStatusFormatter.renderArmor(getArmor(Protomech.LOC_MAINGUN), 1));
+        } else {
+            sb.append(" ");
+        }
+        sb.append(" (").append(UnitStatusFormatter.renderArmor(getArmor(Protomech.LOC_HEAD), 1))
+          .append(")                  ");
+        if (hasMainGun()) {
+            sb.append(UnitStatusFormatter.renderArmor(getInternal(Protomech.LOC_MAINGUN), 1));
+        } else {
+            sb.append(" ");
+        }
+        sb.append(" (");
+        sb.append(UnitStatusFormatter.renderArmor(getInternal(Protomech.LOC_HEAD), 1))
+          .append(")");
+        sb.append(CommonConstants.NL);
+        if (hasMainGun()) {
+            sb.append("         \\/ \\                   \\/ \\");
+            sb.append(CommonConstants.NL);
+        } else {
+            sb.append("          / \\                    / \\");
+            sb.append(CommonConstants.NL);
+        }
+        // arms & torso
+        if (!isQuad()) {
+            sb.append("      (").append(
+                    UnitStatusFormatter.renderArmor(getArmor(Protomech.LOC_LARM), 1));
+            sb.append(" /")
+              .append(UnitStatusFormatter.renderArmor(getArmor(Protomech.LOC_TORSO)))
+              .append(" \\")
+              .append(UnitStatusFormatter.renderArmor(getArmor(Protomech.LOC_RARM)));
+            sb.append(")            (");
+            sb.append(UnitStatusFormatter.renderArmor(getInternal(Protomech.LOC_LARM), 1))
+              .append(" /")
+              .append(UnitStatusFormatter.renderArmor(getInternal(Protomech.LOC_TORSO)))
+              .append(" \\");
+            sb.append(UnitStatusFormatter.renderArmor(getInternal(Protomech.LOC_RARM))).append(
+                    ")");
+            sb.append(CommonConstants.NL);
+        }
+
+        // legs
+        sb.append("         | | |                  | | |");
+        sb.append(CommonConstants.NL);
+        sb.append("        ( ").append(
+                UnitStatusFormatter.renderArmor(getArmor(Protomech.LOC_LEG)));
+        sb.append("  )                ( ");
+        sb.append(UnitStatusFormatter.renderArmor(getInternal(Protomech.LOC_LEG))).append("  )");
+        sb.append(CommonConstants.NL);
+        sb.append("");
+        sb.append(CommonConstants.NL);
+        return sb.toString();
+    }
 }

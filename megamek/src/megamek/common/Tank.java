@@ -29,6 +29,7 @@ import megamek.common.verifier.SupportVeeStructure;
 import megamek.common.verifier.TestEntity;
 import megamek.common.weapons.flamers.VehicleFlamerWeapon;
 import megamek.common.weapons.lasers.CLChemicalLaserWeapon;
+import megamek.server.UnitStatusFormatter;
 
 /**
  * You know what tanks are, silly.
@@ -4406,5 +4407,53 @@ public class Tank extends Entity {
         }
         return false;
     }
-    
+
+    @Override
+    public String formatArmorOutput() {
+        StringBuffer sb = new StringBuffer(1024);
+        sb.append("      ARMOR               INTERNAL")
+          .append(CommonConstants.NL)
+          .append("    __________           __________")
+          .append(CommonConstants.NL)
+          .append("    |\\      /|           |\\      /|")
+          .append(CommonConstants.NL);
+        // front
+        sb.append("    | \\ ").append(UnitStatusFormatter.renderArmor(getArmor(Tank.LOC_FRONT)))
+          .append(" / |           | \\ ");
+        sb.append(UnitStatusFormatter.renderArmor(getInternal(Tank.LOC_FRONT))).append(" / |")
+          .append(CommonConstants.NL)
+          .append("    |  \\__/  |           |  \\__/  |")
+          .append(CommonConstants.NL);
+        // left, turret and right
+        sb.append("    |").append(UnitStatusFormatter.renderArmor(getArmor(Tank.LOC_LEFT)))
+          .append("/");
+        if (!hasNoTurret()) {
+            sb.append(UnitStatusFormatter.renderArmor(getArmor(getLocTurret()))).append("\\");
+        } else {
+            sb.append("  \\");
+        }
+        sb.append(UnitStatusFormatter.renderArmor(getArmor(Tank.LOC_RIGHT))).append(
+                "|           |");
+        sb.append(UnitStatusFormatter.renderArmor(getInternal(Tank.LOC_LEFT))).append("/");
+        if (hasNoTurret()) {
+            sb.append(UnitStatusFormatter.renderArmor(getInternal(getLocTurret())))
+              .append("\\");
+        } else {
+            sb.append("  \\");
+        }
+        sb.append(UnitStatusFormatter.renderArmor(getInternal(Tank.LOC_RIGHT))).append("|")
+          .append(CommonConstants.NL);
+        // rear
+        sb.append("    | /____\\ |           | /____\\ |")
+          .append(CommonConstants.NL).append("    | / ")
+          .append(UnitStatusFormatter.renderArmor(getArmor(Tank.LOC_REAR)))
+          .append(" \\ |           | / ");
+        sb.append(UnitStatusFormatter.renderArmor(getInternal(Tank.LOC_REAR))).append(" \\ |")
+          .append(CommonConstants.NL)
+          .append("    |/______\\|           |/______\\|")
+          .append(CommonConstants.NL);
+
+        sb.append(CommonConstants.NL);
+        return sb.toString();
+    }
 }

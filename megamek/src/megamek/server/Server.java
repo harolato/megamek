@@ -24997,7 +24997,7 @@ public class Server implements Runnable {
             r = new Report(6225);
             r.subject = pm.getId();
             r.indent(3);
-            r.add(Protomech.systemNames[cs.getIndex()]);
+            r.add(pm.getSystemName(cs.getIndex()));
             reports.addElement(r);
         }
         switch (cs.getIndex()) {

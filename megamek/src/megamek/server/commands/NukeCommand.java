@@ -36,7 +36,6 @@ public class NukeCommand extends ServerCommand {
     /** Creates new NukeCommand */
     public NukeCommand(Server server) {
         super(server, "nuke", description + help);
-
     }
 
     /**

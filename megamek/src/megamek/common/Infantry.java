@@ -30,6 +30,7 @@ import megamek.MegaMek;
 import megamek.common.options.OptionsConstants;
 import megamek.common.preference.PreferenceManager;
 import megamek.common.weapons.infantry.InfantryWeapon;
+import megamek.server.UnitStatusFormatter;
 
 /**
  * This class represents the lowest of the low, the ground pounders, the city
@@ -2723,5 +2724,13 @@ public class Infantry extends Entity {
      */
     public int getSpriteDrawPriority() {
         return 1;
+    }
+
+    @Override
+    public String formatArmorOutput() {
+        StringBuffer sb = new StringBuffer(32);
+        sb.append("Surviving troopers: ").append(UnitStatusFormatter.renderArmor(getInternal(0)))
+          .append(CommonConstants.NL);
+        return sb.toString();
     }
 } // End class Infantry
