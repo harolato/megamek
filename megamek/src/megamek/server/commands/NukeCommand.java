@@ -25,17 +25,17 @@ import java.util.Arrays;
  * @version
  */
 public class NukeCommand extends ServerCommand {
-    private static final String description = "Drops a nuke onto the board, to be exploded at" +
-                "the end of the next weapons attack phase.";
-    private static final String help = "Allowed formats:"+
-                "/nuke <x> <y> <type> and" +
-                "/nuke <x> <y> <damage> <degredation> <secondary radius> <craterdepth>" +
-                "where type is 0-4 (0: Davy-Crockett-I, 1: Davy-Crockett-M, 2: Alamo, 3: Santa Ana, 4: Peacemaker)" +
-                "and hex x,y is x=column number and y=row number (hex 0923 would be x=9 and y=23)";
+    private static final String DESCRIPTION = "Drops a nuke onto the board, to be exploded at" +
+                                              "the end of the next weapons attack phase.";
+    private static final String HELP = "Allowed formats:" +
+                                       "/nuke <x> <y> <type> and" +
+                                       "/nuke <x> <y> <damage> <degredation> <secondary radius> <craterdepth>" +
+                                       "where type is 0-4 (0: Davy-Crockett-I, 1: Davy-Crockett-M, 2: Alamo, 3: Santa Ana, 4: Peacemaker)" +
+                                       "and hex x,y is x=column number and y=row number (hex 0923 would be x=9 and y=23)";
 
     /** Creates new NukeCommand */
     public NukeCommand(Server server) {
-        super(server, "nuke", description + help);
+        super(server, "nuke", DESCRIPTION + HELP);
     }
 
     /**
@@ -51,7 +51,7 @@ public class NukeCommand extends ServerCommand {
         }
         
         if ( this.precondition(args) ) {
-            server.sendServerChat(connId, "Nuke command failed." + help);
+            server.sendServerChat(connId, "Nuke command failed." + HELP);
             return;
         }
 
@@ -69,16 +69,13 @@ public class NukeCommand extends ServerCommand {
             server.addScheduledNuke(nuke);
             server.sendServerChat(connId, "A nuke is incoming!  Take cover!");
         } catch (Exception e) {
-            server.sendServerChat(connId, "Nuke command failed (arg len:" + args.length + "). " + help);
+            server.sendServerChat(connId, "Nuke command failed (arg len:" + args.length + "). " + HELP);
         }
     }
     
     protected boolean precondition(String[] args) {
         // Allowed command lengths
-        if (!Arrays.asList(4, 7).contains(args.length)) {
-            return false;
-        }
-        return true;
+        return Arrays.asList(4, 7).contains(args.length);
     }
     
 }
