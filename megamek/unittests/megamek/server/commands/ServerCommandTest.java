@@ -13,6 +13,11 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class ServerCommandTest {
 
+    @Test
+    public void testcommand() {
+        // stub
+    }
+    
     protected String[] parseCommand(String command) {
         return command.split(" ");
     }
