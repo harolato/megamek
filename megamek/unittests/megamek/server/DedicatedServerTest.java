@@ -86,14 +86,43 @@ public class DedicatedServerTest {
 
     @Test
     public void startDSPasswordTest() {
-        String[] args = {"-port", "123","","-password", "test"};
+        String[] args = {"-port", "123","-password", "test"};
         DedicatedServer.start(args);
 
         c = new Client("test", "127.0.0.1", 123);
         assertTrue(c.connect());
         c.sendGameOptions("test", new Vector <IBasicOption>());
+        
+
+        Server s = Server.getServerInstance();
+        //Wait for one second
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        
+        assertTrue(s.isPassworded());
+        assertTrue(s.getGame().getPlayersVector().size() > 0);
+        assertEquals("test", s.getGame().getPlayer(0).getName());
+        
         c.die();
 
+        //Wait for one second
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        assertTrue(s.getGame().getPlayersVector().size() == 0);
+        
+        c = new Client("test", "127.0.0.1", 123);
+        assertTrue(c.connect());
+        c.sendGameOptions("test1", new Vector <IBasicOption>());
+
+        assertTrue(s.getGame().getPlayersVector().size() == 0);
+        
         Server.getServerInstance().die();
     }
 
