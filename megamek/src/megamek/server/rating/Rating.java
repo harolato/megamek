@@ -24,15 +24,14 @@ import megamek.common.event.GameTurnChangeEvent;
 import megamek.common.event.GameVictoryEvent;
 import megamek.server.Server;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
- * @author Deric Page (deric.page@nisc.coop) (ext 2335)
+ * @author Haroldas Latonas
  * @version %Id%
  * @since 23/05/2021 20:44
  */
@@ -45,18 +44,12 @@ public class Rating implements GameListener {
         this.server = server;
     }
     
-    public ArrayList<PlayerStatistics> scoreboard() {
+    public List<PlayerStatistics> scoreboard() {
         ArrayList<PlayerStatistics> scoreboard = new ArrayList<>();
-        for (String key:playerStatistics.keySet()) {
-            scoreboard.add(playerStatistics.get(key));
+        for (Map.Entry<String, PlayerStatistics> entry:playerStatistics.entrySet()) {
+            scoreboard.add(entry.getValue());
         }
-        scoreboard.sort(new Comparator<PlayerStatistics>() {
-            @Override
-            public int compare(final PlayerStatistics o1,
-                               final PlayerStatistics o2) {
-                return o1.getRating() > o2.getRating() ? 1 : 0;
-            }
-        });
+        scoreboard.sort((PlayerStatistics o1, PlayerStatistics o2) -> (o1.getRating() > o2.getRating() ? 1 : 0));
         return scoreboard;
     }
     

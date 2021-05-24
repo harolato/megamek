@@ -122,7 +122,7 @@ public class RatingTest {
         GameVictoryEvent mockVictory = Mockito.mock(GameVictoryEvent.class);
         rating.gameVictory(mockVictory);
 
-        ArrayList<PlayerStatistics> scoreboard = null;
+        List<PlayerStatistics> scoreboard = null;
         
         assertEquals(4, rating.playerStatistics.size());
         assertEquals("Han Solo", mockPlayer1.getName());
@@ -179,7 +179,6 @@ public class RatingTest {
         assertEquals(2, rating.playerStatistics.get("Death Star").getTotalGames());
         
         scoreboard = rating.scoreboard();
-        System.out.println(123);
     }
     
 }

@@ -3,7 +3,7 @@ package megamek.server;
 import megamek.client.Client;
 import megamek.common.IPlayer;
 import megamek.common.options.IBasicOption;
-import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -18,7 +18,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * @author Deric Page (deric.page@nisc.coop) (ext 2335)
+ * @author Haroldas Latonas
  * @version %Id%
  * @since 24/05/2021 14:20
  */
@@ -140,7 +140,7 @@ public class DedicatedServerTest {
         Server.getServerInstance().die();
     }
 
-    @Test
+    @Test  @Ignore
     public void startDSInvalidPortTest() {
         // Off point
         String[] args = {"-port", "65536"};
@@ -150,6 +150,7 @@ public class DedicatedServerTest {
         c = new Client("test", "127.0.0.1", 65536);
         assertFalse(c.connect());
         c.die();
+        
         assertNull(Server.getServerInstance());
         
         // On point

@@ -36,7 +36,7 @@ public class ServerTest {
     
     @Before
     public void setUp() throws IOException {
-        s = new Server("test", 123, false, "");
+        s = new Server("", 123, false, "");
         s.run();
     }
     
