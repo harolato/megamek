@@ -81,87 +81,87 @@ public class Rating implements GameListener {
 
     @Override
     public void gamePlayerDisconnected(final GamePlayerDisconnectedEvent e) {
-        throw new UnsupportedOperationException();
+        //
     }
 
     @Override
     public void gamePlayerChange(final GamePlayerChangeEvent e) {
-        throw new UnsupportedOperationException();
+        //
     }
 
     @Override
     public void gamePlayerChat(final GamePlayerChatEvent e) {
-        throw new UnsupportedOperationException();
+        //
     }
 
     @Override
     public void gameTurnChange(final GameTurnChangeEvent e) {
-        throw new UnsupportedOperationException();
+        //
     }
 
     @Override
     public void gamePhaseChange(final GamePhaseChangeEvent e) {
-        throw new UnsupportedOperationException();
+        //
     }
 
     @Override
     public void gameReport(final GameReportEvent e) {
-        throw new UnsupportedOperationException();
+        //
     }
 
     @Override
     public void gameEnd(final GameEndEvent e) {
-        throw new UnsupportedOperationException();
+        //
     }
 
     @Override
     public void gameBoardNew(final GameBoardNewEvent e) {
-        throw new UnsupportedOperationException();
+        //
     }
 
     @Override
     public void gameBoardChanged(final GameBoardChangeEvent e) {
-        throw new UnsupportedOperationException();
+        //
     }
 
     @Override
     public void gameSettingsChange(final GameSettingsChangeEvent e) {
-        throw new UnsupportedOperationException();
+        //
     }
 
     @Override
     public void gameMapQuery(final GameMapQueryEvent e) {
-        throw new UnsupportedOperationException();
+        //
     }
 
     @Override
     public void gameEntityNew(final GameEntityNewEvent e) {
-        throw new UnsupportedOperationException();
+        //
     }
 
     @Override
     public void gameEntityNewOffboard(final GameEntityNewOffboardEvent e) {
-        throw new UnsupportedOperationException();
+        //
     }
 
     @Override
     public void gameEntityRemove(final GameEntityRemoveEvent e) {
-        throw new UnsupportedOperationException();
+        //
     }
 
     @Override
     public void gameEntityChange(final GameEntityChangeEvent e) {
-        throw new UnsupportedOperationException();
+        //
     }
 
     @Override
     public void gameNewAction(final GameNewActionEvent e) {
-        throw new UnsupportedOperationException();
+        //
     }
 
     @Override
     public void gameClientFeedbackRequest(final GameCFREvent e) {
-        throw new UnsupportedOperationException();
+        //
     }
 
     @Override
