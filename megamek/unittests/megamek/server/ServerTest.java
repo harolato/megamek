@@ -20,9 +20,11 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
- * @author Deric Page (deric.page@nisc.coop) (ext 2335)
+ * @author Haroldas Latonas
  * @version %Id%
  * @since 22/05/2021 17:38
  */
@@ -48,6 +50,7 @@ public class ServerTest {
         try(Socket ableToConnect = new Socket("127.0.0.1", 123)) {
             assertTrue("Accepts connection when server in listening",
                        ableToConnect.isConnected());
+            ableToConnect.close();
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -55,6 +58,7 @@ public class ServerTest {
         try(Socket ableToConnect = new Socket("127.0.0.1", 1234)) {
             assertFalse("Does not accept connection when server in down",
                        ableToConnect.isConnected());
+            ableToConnect.close();
         } catch (Exception e) {
             //
         }
@@ -64,8 +68,22 @@ public class ServerTest {
     public void serverClientTest() {
         c = new Client("test", "127.0.0.1", 123);
         assertTrue(c.connect());
+        c.die();
 
         c = new Client("test", "127.0.0.1", 1234);
         assertFalse(c.connect());
+        c.die();
     }
+
+    @Test
+    public void serverClientConnectDisconnectTest() {
+        c = new Client("test", "127.0.0.1", 123);
+        assertTrue(c.connect());
+        c.die();
+
+        c = new Client("test", "127.0.0.1", 1234);
+        assertFalse(c.connect());
+        c.die();
+    }
+    
 }
