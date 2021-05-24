@@ -14,6 +14,7 @@ import java.util.Vector;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -137,6 +138,28 @@ public class DedicatedServerTest {
         c.die();
 
         Server.getServerInstance().die();
+    }
+
+    @Test
+    public void startDSInvalidPortTest() {
+        // Off point
+        String[] args = {"-port", "65536"};
+        DedicatedServer.start(args);
+
+        //random port, can't connect
+        c = new Client("test", "127.0.0.1", 65536);
+        assertFalse(c.connect());
+        c.die();
+        assertNull(Server.getServerInstance());
+        
+        // On point
+        String[] args1 = {"-port", "65535"};
+        DedicatedServer.start(args1);
+
+        c = new Client("test", "127.0.0.1", 65535);
+        assertTrue(c.connect());
+        c.die();
+        Server.getServerInstance().die();        
     }
 
     /**
